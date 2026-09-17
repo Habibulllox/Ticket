@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>Admin Dashboard</h1>
+
+<p style="font-size: 1.1rem; color: #5d6d7e;">
+    Xush kelibsiz, <strong style="color: #2c3e50;">{{ user.username }}</strong>!
+</p>
+
+<h2>Statistika</h2>
+
+<div class="row mt-4">
+    <div class="col-md-3 mb-3">
+        <div class="ticket" style="border-left-color: #3498db; text-align: center;">
+            <h3 style="color: #3498db; font-size: 2.5rem; margin: 0;">{{ new_count }}</h3>
+            <p style="margin: 5px 0;">Yangi tiketlar</p>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="ticket" style="border-left-color: #f39c12; text-align: center;">
+            <h3 style="color: #f39c12; font-size: 2.5rem; margin: 0;">{{ in_progress_count }}</h3>
+            <p style="margin: 5px 0;">Jarayonda</p>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="ticket" style="border-left-color: #27ae60; text-align: center;">
+            <h3 style="color: #27ae60; font-size: 2.5rem; margin: 0;">{{ closed_count }}</h3>
+            <p style="margin: 5px 0;">Yopilgan</p>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="ticket" style="border-left-color: #2c3e50; text-align: center;">
+            <h3 style="color: #2c3e50; font-size: 2.5rem; margin: 0;">{{ total_count }}</h3>
+            <p style="margin: 5px 0;">Jami</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'admin_ticket_list' %}" class="btn">
+        <i class="fas fa-list"></i> Barcha tiketlar
+    </a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">
+        <i class="fas fa-sign-out-alt"></i> Chiqish
+    </a>
+</div>
+
+{% endblock %}

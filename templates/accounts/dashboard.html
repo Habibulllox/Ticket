@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<p style="font-size: 1.1rem; color: #5d6d7e;">
+    Xush kelibsiz, <strong style="color: #2c3e50;">{{ user.username }}</strong>!
+</p>
+
+<h2>Mening tiketlarim</h2>
+
+<div class="mb-4">
+    <a href="{% url 'ticket_create' %}" class="btn">
+        <i class="fas fa-plus"></i> Yangi tiket
+    </a>
+    <a href="{% url 'ticket_list' %}" class="btn">
+        <i class="fas fa-list"></i> Barcha tiketlar
+    </a>
+</div>
+
+{% for ticket in tickets %}
+<div class="ticket">
+    <h3>
+        <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.title }}</a>
+    </h3>
+    <p>
+        <strong>Status:</strong>
+        <span class="status-{{ ticket.status }}">{{ ticket.status }}</span>
+    </p>
+    <p>
+        <strong>Priority:</strong>
+        <span class="priority-{{ ticket.priority }}">{{ ticket.priority }}</span>
+    </p>
+</div>
+{% empty %}
+<div class="ticket" style="text-align: center; border-left-color: #95a5a6;">
+    <p style="font-size: 1.1rem; color: #7f8c8d;">
+        <i class="fas fa-inbox"></i> Hozircha tiketlar yo'q.
+    </p>
+    <a href="{% url 'ticket_create' %}" class="btn">
+        <i class="fas fa-plus"></i> Birinchi tiketni yarating
+    </a>
+</div>
+{% endfor %}
+
+<div class="mt-4">
+    <a href="{% url 'logout' %}" class="btn btn-danger">
+        <i class="fas fa-sign-out-alt"></i> Chiqish
+    </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Barcha tiketlar (Admin) - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>Barcha tiketlar</h1>
+
+<p>Xush kelibsiz, <strong>{{ request.user.username }}</strong>!</p>
+
+<form method="get" class="mb-3">
+    <div class="row g-2">
+        <div class="col-md-8">
+            <label>Username bo'yicha qidirish:</label>
+            <input type="text" name="username" value="{{ username|default:'' }}" placeholder="Username" class="form-control">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn w-100">
+                <i class="fas fa-search"></i> Qidirish
+            </button>
+        </div>
+    </div>
+</form>
+
+{% if tickets %}
+    {% for ticket in tickets %}
+        <div class="ticket">
+            <h3>
+                <a href="{% url 'ticket_detail' ticket.id %}">{{ ticket.title }}</a>
+            </h3>
+
+            <p><strong>Foydalanuvchi:</strong> {{ ticket.created_by.username }}</p>
+
+            <p><strong>Status:</strong>
+                <span class="status-{{ ticket.status }}">{{ ticket.get_status_display }}</span>
+            </p>
+
+            <p><strong>Priority:</strong>
+                <span class="priority-{{ ticket.priority }}">{{ ticket.get_priority_display }}</span>
+            </p>
+
+            <p><strong>Yaratilgan:</strong> {{ ticket.created_at }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Tiketlar topilmadi.</p>
+{% endif %}
+
+{% endblock %}

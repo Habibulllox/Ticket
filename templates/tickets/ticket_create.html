@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Yangi tiket - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>Yangi tiket yaratish</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>
+        <label>Sarlavha:</label>
+        <input type="text" name="title" required placeholder="Muammo sarlavhasi">
+    </p>
+
+    <p>
+        <label>Tavsif:</label>
+        <textarea name="description" rows="6" required placeholder="Muammoni batafsil yozing..."></textarea>
+    </p>
+
+    <p>
+        <label>Rasm (ixtiyoriy):</label>
+        <input type="file" name="image" accept="image/*">
+    </p>
+
+    <p>
+        <label>Priority:</label>
+        <select name="priority">
+            <option value="low">Low</option>
+            <option value="normal" selected>Normal</option>
+            <option value="high">High</option>
+        </select>
+    </p>
+
+    <button type="submit">
+        <i class="fas fa-paper-plane"></i> Tiket yaratish
+    </button>
+</form>
+
+<a href="{% url 'ticket_list' %}" class="btn mt-3">
+    <i class="fas fa-arrow-left"></i> Orqaga
+</a>
+
+{% endblock %}

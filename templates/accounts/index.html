@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="news_l">
+        {% for a in news_list %}
+            <a href="">{{ a.category.name }}</a>
+            <a href=""><i class="fa-solid fa-calendar-days"></i>{{ a.published_at }}</a>
+            <span><i class="fa-solid fa-eye"></i>{{ a.view_count }}</span>
+            <h5>
+                <a href="" class="text-decoration-none">{{ a.title }}</a>
+            </h5>
+            <p>{{ a.content }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

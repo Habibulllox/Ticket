@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Ro'yxatdan o'tish - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>Ro'yxatdan o'tish</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+        <i class="fas fa-user-plus"></i> Ro'yxatdan o'tish
+    </button>
+</form>
+
+<p class="text-center mt-3">
+    Akkauntingiz bormi?
+    <a href="{% url 'login' %}">Kirish</a>
+</p>
+
+{% endblock %}

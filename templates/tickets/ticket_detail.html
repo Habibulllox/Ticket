@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ticket.title }} - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>{{ ticket.title }}</h1>
+
+{% if ticket.image %}
+    <p>
+        <img src="{{ ticket.image.url }}" alt="Ticket image" class="img-fluid mb-3" style="max-width: 400px;">
+    </p>
+{% endif %}
+
+<div class="ticket">
+    <p><strong>Tavsif:</strong> {{ ticket.description }}</p>
+
+    <p><strong>Status:</strong>
+        <span class="status-{{ ticket.status }}">{{ ticket.get_status_display }}</span>
+    </p>
+
+    <p><strong>Priority:</strong>
+        <span class="priority-{{ ticket.priority }}">{{ ticket.get_priority_display }}</span>
+    </p>
+
+    <p><strong>Yaratilgan:</strong> {{ ticket.created_at }}</p>
+    <p><strong>Muallif:</strong> {{ ticket.created_by.username }}</p>
+</div>
+
+{% if request.user.role == "admin" %}
+<h2>Statusni o'zgartirish</h2>
+<form method="post" action="{% url 'ticket_update_status' ticket.id %}">
+    {% csrf_token %}
+    <label>Yangi status:</label>
+    <select name="status">
+        <option value="new" {% if ticket.status == "new" %}selected{% endif %}>New</option>
+        <option value="in_progress" {% if ticket.status == "in_progress" %}selected{% endif %}>In Progress</option>
+        <option value="closed" {% if ticket.status == "closed" %}selected{% endif %}>Closed</option>
+    </select>
+    <button type="submit">Yangilash</button>
+</form>
+{% endif %}
+
+<h2>Izohlar</h2>
+
+{% if comments %}
+    {% for comment in comments %}
+        <div class="ticket">
+            <p>
+                <strong>{{ comment.user.username }}</strong>
+                <small class="text-muted">{{ comment.created_at }}</small>
+            </p>
+            <p>{{ comment.message }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Hozircha izohlar yo'q.</p>
+{% endif %}
+
+<h2>Izoh qo'shish</h2>
+
+<form method="post" action="{% url 'comment_create' ticket.id %}">
+    {% csrf_token %}
+    <textarea name="message" rows="5" required placeholder="Izohingizni yozing..."></textarea>
+    <button type="submit">Izoh qo'shish</button>
+</form>
+
+<a href="{% url 'ticket_list' %}" class="btn mt-3">
+    <i class="fas fa-arrow-left"></i> Orqaga
+</a>
+
+{% endblock %}

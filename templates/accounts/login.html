@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Kirish - Bekorchi Uz{% endblock %}
+
+{% block content %}
+
+<h1>Kirish</h1>
+
+{% if error %}
+    <div class="messages">
+        <li class="error">{{ error }}</li>
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        <label>Username:</label>
+        <input type="text" name="username" required>
+    </p>
+
+    <p>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+    </p>
+
+    <button type="submit">Kirish</button>
+</form>
+
+<p class="text-center mt-3">
+    Akkauntingiz yo'qmi?
+    <a href="{% url 'register' %}">Ro'yxatdan o'ting</a>
+</p>
+
+{% endblock %}
